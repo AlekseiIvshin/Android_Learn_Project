@@ -1,7 +1,6 @@
 package ivshinaleksei.samples.listsandcards;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,10 @@ import java.util.Random;
  */
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
 
-    public static final String TAG = MyRecyclerAdapter.class.getSimpleName();
-
     private static final int NORMAL_CARD = 0;
     private static final int WIDE_CARD = 1;
 
     public static final Random RANDOM = new Random();
-
-    private View mRootView;
 
     private final List<String> mItems;
 
@@ -40,17 +35,18 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int position) {
         int type = getItemViewType(position);
+        View rootView;
         switch (type) {
             case NORMAL_CARD:
-                mRootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
+                rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
                 break;
             case WIDE_CARD:
-                mRootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.wide_card_view, parent, false);
+                rootView = LayoutInflater.from(parent.getContext()).inflate(R.layout.wide_card_view, parent, false);
                 break;
             default:
                 throw new IllegalArgumentException();
         }
-        return new MyViewHolder(mRootView);
+        return new MyViewHolder(rootView);
     }
 
     @Override
@@ -65,13 +61,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
 
     @Override
     public int getItemViewType(int position) {
-        if (RANDOM.nextInt(2) == 0) {
-            Log.d(TAG, "Normal card");
-            return NORMAL_CARD;
-        } else {
-            Log.d(TAG, "Wide card");
-            return WIDE_CARD;
-        }
+        return getRandomItemType();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -85,6 +75,14 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
 
         public void setContent(String content) {
             mCardTextView.setText(content);
+        }
+    }
+
+    private int getRandomItemType() {
+        if (RANDOM.nextInt(2) == 0) {
+            return NORMAL_CARD;
+        } else {
+            return WIDE_CARD;
         }
     }
 }
