@@ -32,7 +32,14 @@ public class MainActivity extends Activity {
             }
         });
 
-
+        Button foregroundServiceExecutor = (Button) findViewById(R.id.start_foreground_service);
+        foregroundServiceExecutor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ForegroundService.class);
+                startService(intent);
+            }
+        });
     }
 
 }

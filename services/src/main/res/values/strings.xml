@@ -2,4 +2,7 @@
     <string name="app_name">Services</string>
     <string name="start_intent_service">Start intent service</string>
     <string name="start_service">Start service</string>
+    <string name="start_foreground_service">Start foreground service</string>
+    <string name="notification_title">Foreground service</string>
+    <string name="notification_text">Greeting!</string>
 </resources>
