@@ -31,4 +31,31 @@
             android:text="@string/start_foreground_service"
             tools:text="@string/start_foreground_service"/>
 
+
+    <Button
+            android:id="@+id/bind_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bind_service"
+            tools:text="@string/bind_service"/>
+
+    <Button
+            android:id="@+id/unbind_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/unbind_service"
+            tools:text="@string/unbind_service"/>
+
+    <Button
+            android:id="@+id/unbind_service_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bound_service_call"
+            tools:text="@string/bound_service_call"/>
+
+    <TextView
+            android:id="@+id/unbind_service_call_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
 </LinearLayout>

@@ -1,8 +1,17 @@
 <resources>
     <string name="app_name">Services</string>
+    <!-- Notifications -->
+    <string name="notification_title">Foreground service</string>
+    <string name="notification_text">Greeting!</string>
+
+    <!-- Services-->
     <string name="start_intent_service">Start intent service</string>
     <string name="start_service">Start service</string>
     <string name="start_foreground_service">Start foreground service</string>
-    <string name="notification_title">Foreground service</string>
-    <string name="notification_text">Greeting!</string>
+    <string name="bind_service">Bind local service</string>
+    <string name="unbind_service">Unbind local service</string>
+
+    <string name="bound_service_call">Get random number from bound service</string>
+    <string name="bound_service_call_result">Generated: %d</string>
+
 </resources>
