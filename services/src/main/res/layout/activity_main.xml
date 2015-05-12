@@ -31,31 +31,55 @@
             android:text="@string/start_foreground_service"
             tools:text="@string/start_foreground_service"/>
 
+    <View style="@style/DividerView"/>
 
     <Button
-            android:id="@+id/bind_service"
+            android:id="@+id/bind_local_service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bind_service"
-            tools:text="@string/bind_service"/>
+            android:text="@string/bind_local_service"
+            tools:text="@string/bind_local_service"/>
 
     <Button
-            android:id="@+id/unbind_service"
+            android:id="@+id/unbind_local_service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/unbind_service"
-            tools:text="@string/unbind_service"/>
+            android:text="@string/unbind_local_service"
+            tools:text="@string/unbind_local_service"/>
 
     <Button
-            android:id="@+id/unbind_service_call"
+            android:id="@+id/unbind_local_service_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bound_service_call"
-            tools:text="@string/bound_service_call"/>
+            android:text="@string/bound_local_service_call"
+            tools:text="@string/bound_local_service_call"/>
 
     <TextView
-            android:id="@+id/unbind_service_call_result"
+            android:id="@+id/unbind_local_service_call_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+    <View style="@style/DividerView"/>
+
+    <Button
+            android:id="@+id/bind_messenger_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bind_messenger_service"
+            tools:text="@string/bind_messenger_service"/>
+
+    <Button
+            android:id="@+id/unbind_messenger_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/unbind_messenger_service"
+            tools:text="@string/unbind_messenger_service"/>
+
+    <Button
+            android:id="@+id/bound_messenger_service_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bound_messenger_service_call"
+            tools:text="@string/bound_messenger_service_call"/>
 
 </LinearLayout>

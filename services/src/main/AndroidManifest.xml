@@ -20,7 +20,8 @@
         <service android:name=".MyIntentService" />
         <service android:name=".MyService" />
         <service android:name=".ForegroundService" />
-        <service android:name=".LocalBoundService"/>
+        <service android:name=".LocalBoundService" />
+        <service android:name=".MessengerService"/>
     </application>
 
 </manifest>

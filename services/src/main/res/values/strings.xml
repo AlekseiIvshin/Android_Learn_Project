@@ -8,10 +8,14 @@
     <string name="start_intent_service">Start intent service</string>
     <string name="start_service">Start service</string>
     <string name="start_foreground_service">Start foreground service</string>
-    <string name="bind_service">Bind local service</string>
-    <string name="unbind_service">Unbind local service</string>
+    <string name="bind_local_service">Bind local service</string>
+    <string name="unbind_local_service">Unbind local service</string>
+    <string name="bind_messenger_service">Bind messenger service</string>
+    <string name="unbind_messenger_service">Unbind messenger service</string>
 
-    <string name="bound_service_call">Get random number from bound service</string>
-    <string name="bound_service_call_result">Generated: %d</string>
+    <string name="bound_local_service_call">Get random number from bound service</string>
+    <string name="bound_local_service_call_result">Generated: %d</string>
+
+    <string name="bound_messenger_service_call">Send greeting message</string>
 
 </resources>
