@@ -18,6 +18,7 @@ public class NotificationService extends Service {
     public static final int SHOW_PROGRESS_BAR = 1;
     public static final int SHOW_SIMPLE_NOTIFICATION = 2;
     public static final int SHOW_SIMPLE_ACTION_NOTIFICATION = 3;
+    public static final int SHOW_ADVANCED_ACTION_NOTIFICATION = 4;
 
 
     private static final int NOTIFICATION_ID = 1;
@@ -73,38 +74,36 @@ public class NotificationService extends Service {
             mNotificationBuilder.setSmallIcon(R.drawable.notification_icon);
             switch (msg.what) {
                 case SHOW_PROGRESS_BAR:
-                    mNotificationBuilder
-                            .setContentTitle("Progress title")
-                            .setContentText("Omnomnom!");
-                    for (int i = 0; i < MAX_PROGRESS_VALUE; i++) {
-                        showProgress(i);
-                        try {
-                            Thread.sleep(100l);
-                        } catch (InterruptedException e) {
-                            Log.e(TAG, e.getMessage(), e);
-                        }
-                    }
-                    hideProgress();
+                    showProgressBarNotification();
                     break;
                 case SHOW_SIMPLE_NOTIFICATION:
-                    mNotificationBuilder.setContentTitle("Greeting!")
-                            .setContentText("I'm a simple notification!")
-                            .setVisibility(NotificationCompat.VISIBILITY_SECRET);
-                    mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
+                    showSimpleNotification();
                     break;
                 case SHOW_SIMPLE_ACTION_NOTIFICATION:
+                    showSimpleActionNotification();
+                    break;
 
-                    Intent notifyIntent = new Intent(NotificationService.this, SpecialNotificationActivity.class);
-                    notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent notifyPendingIntent = PendingIntent.getActivity(NotificationService.this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                    mNotificationBuilder
-                            .setContentTitle("Call")
-                            .setContentText("The Robot")
-                            .setContentIntent(notifyPendingIntent);
-                    mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
+                case SHOW_ADVANCED_ACTION_NOTIFICATION:
+                    showAdvancedActionNotification();
+                    break;
             }
         }
+
+        private void showProgressBarNotification() {
+            mNotificationBuilder
+                    .setContentTitle("Progress title")
+                    .setContentText("Omnomnom!");
+            for (int i = 0; i < MAX_PROGRESS_VALUE; i++) {
+                showProgress(i);
+                try {
+                    Thread.sleep(100l);
+                } catch (InterruptedException e) {
+                    Log.e(TAG, e.getMessage(), e);
+                }
+            }
+            hideProgress();
+        }
+
 
         private void showProgress(int currentValue) {
             mNotificationBuilder.setProgress(MAX_PROGRESS_VALUE, currentValue, false);
@@ -115,6 +114,43 @@ public class NotificationService extends Service {
             mNotificationBuilder.setProgress(0, 0, false);
             mNotificationBuilder.setContentText("Completed");
             mNotificationManager.notify(NOTIFICATION_PROGRESS_ID, mNotificationBuilder.build());
+        }
+
+        private void showSimpleNotification() {
+            mNotificationBuilder.setContentTitle("Greeting!")
+                    .setContentText("I'm a simple notification!")
+                    .setVisibility(NotificationCompat.VISIBILITY_SECRET);
+            mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
+        }
+
+        private void showSimpleActionNotification() {
+            Intent notifyIntent = new Intent(NotificationService.this, SpecialNotificationActivity.class);
+            notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent notifyPendingIntent = PendingIntent.getActivity(NotificationService.this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            mNotificationBuilder
+                    .setContentTitle("Call")
+                    .setContentText("The Robot")
+                    .setContentIntent(notifyPendingIntent);
+            mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
+        }
+
+        private void showAdvancedActionNotification() {
+            if (Build.VERSION_CODES.LOLLIPOP <= Build.VERSION.SDK_INT) {
+                Intent notifyIntent = new Intent(NotificationService.this, SpecialNotificationActivity.class);
+                notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent notifyPendingIntent = PendingIntent.getActivity(NotificationService.this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mNotificationBuilder
+                        .setContentTitle("Call")
+                        .setContentText("The Robot")
+                        .addAction(R.drawable.notification_icon, "Call", notifyPendingIntent);
+                mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
+            } else{
+                mNotificationBuilder
+                        .setContentTitle("Can't show notification")
+                        .setContentText("Cause: need api level = " + Build.VERSION_CODES.LOLLIPOP+", but current api level = "+Build.VERSION.SDK_INT);
+                mNotificationManager.notify(NOTIFICATION_ID,mNotificationBuilder.build());
+            }
         }
 
     }
