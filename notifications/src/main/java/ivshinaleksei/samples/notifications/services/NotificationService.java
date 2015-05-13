@@ -21,12 +21,14 @@ public class NotificationService extends Service {
 
 
     private static final int NOTIFICATION_ID = 1;
+    private static final int NOTIFICATION_PROGRESS_ID = 2;
 
     private static final String TAG = NotificationService.class.getSimpleName();
 
     private ServiceHandler mServiceHandler;
 
-    public NotificationService() { }
+    public NotificationService() {
+    }
 
     @Override
     public void onCreate() {
@@ -62,12 +64,12 @@ public class NotificationService extends Service {
 
         public ServiceHandler(Looper looper) {
             super(looper);
-            mNotificationBuilder = new NotificationCompat.Builder(NotificationService.this);
             mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         }
 
         @Override
         public void handleMessage(Message msg) {
+            mNotificationBuilder = new NotificationCompat.Builder(NotificationService.this);
             mNotificationBuilder.setSmallIcon(R.drawable.notification_icon);
             switch (msg.what) {
                 case SHOW_PROGRESS_BAR:
@@ -86,32 +88,33 @@ public class NotificationService extends Service {
                     break;
                 case SHOW_SIMPLE_NOTIFICATION:
                     mNotificationBuilder.setContentTitle("Greeting!")
-                            .setContentText("I'm a simple notification!");
+                            .setContentText("I'm a simple notification!")
+                            .setVisibility(NotificationCompat.VISIBILITY_SECRET);
                     mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
                     break;
                 case SHOW_SIMPLE_ACTION_NOTIFICATION:
 
                     Intent notifyIntent = new Intent(NotificationService.this, SpecialNotificationActivity.class);
-                    notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    PendingIntent notifyPendingIntent = PendingIntent.getActivity(NotificationService.this,0,notifyIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    PendingIntent notifyPendingIntent = PendingIntent.getActivity(NotificationService.this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     mNotificationBuilder
                             .setContentTitle("Call")
                             .setContentText("The Robot")
                             .setContentIntent(notifyPendingIntent);
-                    mNotificationManager.notify(NOTIFICATION_ID,mNotificationBuilder.build());
+                    mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
             }
         }
 
         private void showProgress(int currentValue) {
             mNotificationBuilder.setProgress(MAX_PROGRESS_VALUE, currentValue, false);
-            mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
+            mNotificationManager.notify(NOTIFICATION_PROGRESS_ID, mNotificationBuilder.build());
         }
 
         private void hideProgress() {
             mNotificationBuilder.setProgress(0, 0, false);
             mNotificationBuilder.setContentText("Completed");
-            mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
+            mNotificationManager.notify(NOTIFICATION_PROGRESS_ID, mNotificationBuilder.build());
         }
 
     }
