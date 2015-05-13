@@ -75,10 +75,6 @@ public class ForegroundService extends Service {
 
         startForeground(startId,notificationBuilder.build());
 
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        notificationManager.notify(startId,notificationBuilder.build());
-
-
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);

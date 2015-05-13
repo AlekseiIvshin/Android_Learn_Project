@@ -1,1 +1,1 @@
-include ':app', ':services', ':recyclerViewAndCards'
+include ':app', ':services', ':recyclerViewAndCards', ':notifications'
