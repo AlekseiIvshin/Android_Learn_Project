@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NotificationService.class);
-                intent.putExtra(NotificationService.SERVICE_ACTIONS,NotificationService.SHOW_PROGRESS_BAR);
+                intent.putExtra(NotificationService.SERVICE_ACTIONS, NotificationService.SHOW_PROGRESS_BAR);
                 startService(intent);
             }
         });
@@ -31,6 +31,16 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NotificationService.class);
                 intent.putExtra(NotificationService.SERVICE_ACTIONS,NotificationService.SHOW_SIMPLE_NOTIFICATION);
+                startService(intent);
+            }
+        });
+
+        Button showSimpleActionNotification = (Button) findViewById(R.id.show_simple_action_notification);
+        showSimpleActionNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NotificationService.class);
+                intent.putExtra(NotificationService.SERVICE_ACTIONS,NotificationService.SHOW_SIMPLE_ACTION_NOTIFICATION);
                 startService(intent);
             }
         });
