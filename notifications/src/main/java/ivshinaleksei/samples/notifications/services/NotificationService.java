@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.*;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RemoteViews;
 import ivshinaleksei.samples.notifications.R;
 import ivshinaleksei.samples.notifications.SpecialNotificationActivity;
 
@@ -19,6 +20,7 @@ public class NotificationService extends Service {
     public static final int SHOW_SIMPLE_NOTIFICATION = 2;
     public static final int SHOW_SIMPLE_ACTION_NOTIFICATION = 3;
     public static final int SHOW_ADVANCED_ACTION_NOTIFICATION = 4;
+    public static final int SHOW_CUSTOM_NOTIFICATION = 5;
 
 
     private static final int NOTIFICATION_ID = 1;
@@ -86,6 +88,9 @@ public class NotificationService extends Service {
                 case SHOW_ADVANCED_ACTION_NOTIFICATION:
                     showAdvancedActionNotification();
                     break;
+                case SHOW_CUSTOM_NOTIFICATION:
+                    showCustomNotification();
+                    break;
             }
         }
 
@@ -151,6 +156,16 @@ public class NotificationService extends Service {
                         .setContentText("Cause: need api level = " + Build.VERSION_CODES.LOLLIPOP+", but current api level = "+Build.VERSION.SDK_INT);
                 mNotificationManager.notify(NOTIFICATION_ID,mNotificationBuilder.build());
             }
+        }
+
+        private void showCustomNotification(){
+            Intent notifyIntent = new Intent(NotificationService.this, SpecialNotificationActivity.class);
+            notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent notifyPendingIntent = PendingIntent.getActivity(NotificationService.this, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            RemoteViews views = new RemoteViews(getPackageName(),R.layout.notification_custom_layout);
+            views.setOnClickPendingIntent(R.id.custom_notification_action0,notifyPendingIntent);
+            mNotificationBuilder.setContent(views);
+            mNotificationManager.notify(NOTIFICATION_ID,mNotificationBuilder.build());
         }
 
     }

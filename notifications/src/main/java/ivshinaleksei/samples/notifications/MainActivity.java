@@ -44,12 +44,23 @@ public class MainActivity extends Activity {
                 startService(intent);
             }
         });
+
         Button showAdvancedActionNotification = (Button) findViewById(R.id.show_advanced_action_notification);
         showAdvancedActionNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NotificationService.class);
                 intent.putExtra(NotificationService.SERVICE_ACTIONS,NotificationService.SHOW_ADVANCED_ACTION_NOTIFICATION);
+                startService(intent);
+            }
+        });
+
+        Button showCustomNotification = (Button) findViewById(R.id.show_custom_notification);
+        showCustomNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NotificationService.class);
+                intent.putExtra(NotificationService.SERVICE_ACTIONS,NotificationService.SHOW_CUSTOM_NOTIFICATION);
                 startService(intent);
             }
         });
